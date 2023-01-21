@@ -1,2 +1,2 @@
-# 1-photos-app
-Node app studying
+# Photos App
+JS+Node app studying project
