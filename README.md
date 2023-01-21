@@ -1,2 +1,2 @@
-# 1-hello-app
+# 1-photos-app
 Node app studying
