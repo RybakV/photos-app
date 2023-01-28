@@ -1,5 +1,9 @@
-const postsNumber = 25;
-const descriptionArray = [
+const postsQuantity = 25;
+const avatarsQuantity = 6;
+const likesRange = [25,200];
+const commentsRange = [1,3];
+
+const descriptions = [
   'Це фото було зроблено у відпустці минулого року',
   'Це мій подарунок на день народження',
   'Тут мала бути якась цитата з пацанського цитатника',
@@ -8,7 +12,7 @@ const descriptionArray = [
   'Поставте лайк будьласка. Дуже потрібно!',
   'Хто знає де таке знайти? Мене забанили в гуглі',
 ];
-const commentsArray = [
+const comments = [
   'Все відмінно!',
   'Загалом все непогано. Але не всі.',
   'Коли ви робите фотографію, добре б прибирати палець із кадру. Зрештою, це просто непрофесійно.',
@@ -16,7 +20,7 @@ const commentsArray = [
   'Я послизнувся на банановій шкірці і впустив фотоапарат на кота і у мене вийшла фотографія краще.',
   'Обличчя людей на фотці перекошені, ніби їх побивають. Як можна було зловити такий невдалий момент?',
 ];
-const namesArray = [
+const names = [
   'Віола Ярославська',
   'Денис Круть',
   'Вован Пежанський',
@@ -35,23 +39,49 @@ function getRandomNumber(min, max){
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function shuffleArray(inputArray){
+  let cloneArray = JSON.parse(JSON.stringify(inputArray));
+  let outputArray = [];
+  for (let i = 0; i < inputArray.length; i++){
+    let randomIndex = getRandomNumber(0, cloneArray.length - 1);
+    console.log(`i: ${i}`);
+    outputArray.push(cloneArray.splice(randomIndex, 1));
+    console.log(`Inputs: ${cloneArray}`);
+    console.log(`Outputs: ${outputArray}`);
+  }
+  return outputArray;
+}
+
 function createPost(id){
+  let commentaries = createComment(getRandomNumber(commentsRange[0], commentsRange[1]));
   return {
     id: id,
-    url: './photos/'+ getRandomNumber(1,25) +'.jpg',
-    description: descriptionArray[getRandomNumber(1, descriptionArray.length)],
-    likes: getRandomNumber(25,200),
+    url: `./photos/${id + 1}.jpg`,
+    description: descriptions[getRandomNumber(1, descriptions.length - 1)],
+    likes: getRandomNumber(likesRange[0],likesRange[1]),
+    comments: commentaries
   }
 }
 
-function createComment(id){
-  return {
-    id: id,
-    avatar: './img/avatar-'+ getRandomNumber(1,6) +'.svg',
-    message: commentsArray[getRandomNumber(1, commentsArray.length)],
-    name: namesArray[getRandomNumber(1, namesArray.length)],
+function createComment(quantity){
+  let comments = [];
+  for (let i = 0; i < quantity; i++) {
+    let comment = {
+      id: i,
+      avatar: `./img/avatar-${getRandomNumber(1,avatarsQuantity)}.svg`,
+      message: comments[getRandomNumber(1, comments.length)],
+      name: names[getRandomNumber(1, names.length)],
+    }
+    comments.push(comment);
   }
+  return comments;
 }
 
-console.log(createComment(1));
-console.log(createPost(1));
+posts = [];
+function generatePosts(quantity) {
+  for (let i = 0; i < quantity; i++){
+    posts.push(createPost(i));
+  }
+  console.log(posts);
+}
+generatePosts(postsQuantity);
