@@ -1,5 +1,5 @@
 {
-  "name": "Gram",
+  "name": "photos-app",
   "version": "1.0.0",
   "private": true,
   "description": "Особистий проект",
@@ -12,7 +12,6 @@
     "eslint-config-htmlacademy": "4.0.0"
   },
   "license": "MIT",
-  "dependencies": {},
   "scripts": {
     "start": "browser-sync start --server --no-ui --files \"js/**/*.js\"",
     "test": "eslint js/"
@@ -20,5 +19,13 @@
   "engines": {
     "node": "14.x",
     "npm": "6.x"
-  }
+  },
+  "main": "index.js",
+  "keywords": [
+    "photos",
+    "app",
+    "hilel",
+    "study"
+  ],
+  "author": "RybakV"
 }
