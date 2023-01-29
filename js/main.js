@@ -1,4 +1,4 @@
-import { thumbnail } from './picture.js';
+import { thumbnails } from './picture.js';
 
 const postsQuantity = 25;
 const avatarsQuantity = 6;
@@ -16,23 +16,24 @@ const descriptions = [
 ];
 const comments = [
   'Все відмінно!',
-  'Загалом все непогано. Але не всі.',
-  'Коли ви робите фотографію, добре б прибирати палець із кадру. Зрештою, це просто непрофесійно.',
-  'Моя бабуся випадково чхнула з фотоапаратом у руках і у неї вийшла фотографія краща.',
-  'Я послизнувся на банановій шкірці і впустив фотоапарат на кота і у мене вийшла фотографія краще.',
-  'Обличчя людей на фотці перекошені, ніби їх побивають. Як можна було зловити такий невдалий момент?',
+  'Дуже класно, таке яскраве фото',
+  'Тільки не кажи що ви витратили на це всю зарплату :О',
+  'Вчора теж зробила таку фотку, прикол!',
+  'Приходь завтра на піцу!',
+  'Звідки в тебе стільки підписників?',
+  'Доброо дня! Ви продаєте рекламу в профілі?',
 ];
 const names = [
   'Віола Ярославська',
   'Денис Круть',
-  'Вован Пежанський',
-  'Христя Чехович',
-  'Мстислав Жуковський',
-  'Юрій Андрейченко',
+  'Пацан Вован',
+  'Христя Чех',
+  'Мстислав Жукович',
+  'Юрій Андрійченко',
   'П\'єр Михайличенко',
   'Леонід Дашук',
-  'Наталя Потебенько',
-  'Надія Нижанківська',
+  'Наталя не Надія',
+  'Надія Київська',
 ];
 
 function getRandomNumber(min, max){
@@ -46,10 +47,7 @@ function shuffleArray(inputArray){
   let outputArray = [];
   for (let i = 0; i < inputArray.length; i++){
     let randomIndex = getRandomNumber(0, cloneArray.length - 1);
-    console.log(`i: ${i}`);
     outputArray.push(cloneArray.splice(randomIndex, 1));
-    console.log(`Inputs: ${cloneArray}`);
-    console.log(`Outputs: ${outputArray}`);
   }
   return outputArray;
 }
@@ -94,9 +92,4 @@ function generatePosts(quantity) {
 }
 generatePosts(postsQuantity);
 
-function genOtherUsersPics(){
-  for (let i = 0; i < posts.length; i++){
-    thumbnail(posts[i].url,posts[i].likes,posts[i].comments.length);
-  }
-}
-genOtherUsersPics();
+thumbnails(posts);
