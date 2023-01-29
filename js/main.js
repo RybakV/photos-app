@@ -1,3 +1,5 @@
+import { thumbnail } from './picture.js';
+
 const postsQuantity = 25;
 const avatarsQuantity = 6;
 const likesRange = [25,200];
@@ -77,11 +79,24 @@ function createComment(quantity){
   return comments;
 }
 
-posts = [];
+let posts = [];
 function generatePosts(quantity) {
-  for (let i = 0; i < quantity; i++){
-    posts.push(createPost(i));
+  let numbers = [];
+  for (let i =0; i < quantity; ++i){
+    numbers.push(i);
   }
-  console.log(posts);
+  console.log(numbers);
+  let randomNumbers = shuffleArray(numbers);
+
+  for (let i = 0; i < quantity; i++){
+    posts.push(createPost(Number(randomNumbers[i])));
+  }
 }
 generatePosts(postsQuantity);
+
+function genOtherUsersPics(){
+  for (let i = 0; i < posts.length; i++){
+    thumbnail(posts[i].url,posts[i].likes,posts[i].comments.length);
+  }
+}
+genOtherUsersPics();
