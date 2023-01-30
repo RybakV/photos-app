@@ -1,4 +1,5 @@
 import { thumbnails } from './picture.js';
+import { openBigImage } from './lightbox.js';
 
 const postsQuantity = 25;
 const avatarsQuantity = 6;
@@ -93,3 +94,6 @@ function generatePosts(quantity) {
 generatePosts(postsQuantity);
 
 thumbnails(posts);
+
+
+
