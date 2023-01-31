@@ -909,7 +909,10 @@ main {
   padding: 0;
   padding-top: 20px;
 }
-
+.social__author {
+  font-weight: bold;
+  margin: 0 0 2px
+}
 .social__comment {
   padding-left: 15px;
   padding-right: 15px;

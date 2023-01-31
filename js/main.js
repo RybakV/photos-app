@@ -14,6 +14,9 @@ const descriptions = [
   'Я принципіально не фоткаю їжу!!!',
   'Поставте лайк будьласка. Дуже потрібно!',
   'Хто знає де таке знайти? Мене забанили в гуглі',
+  'Сьогодні гарний день, чи не так?',
+  'Ще один крок на шляху до успіху',
+  'Якщо уподобали цей пост, то гляньте і вчорашній.'
 ];
 const allComments = [
   'Все відмінно!',
@@ -21,8 +24,13 @@ const allComments = [
   'Тільки не кажи що ви витратили на це всю зарплату :О',
   'Вчора теж зробила таку фотку, прикол!',
   'Приходь завтра на піцу!',
+  'Приходь на каву, все розповіси.',
+  'І як все пройшло? Тобі сподобалось?',
+  'Не вірю своїм очам, очманіти!',
   'Звідки в тебе стільки підписників?',
   'Доброо дня! Ви продаєте рекламу в профілі?',
+  'Ну все начувайтесь! Я скоро приїду до вас!!!',
+  'Ніколи не пізно зганяти в ресторан',
 ];
 const names = [
   'Віола Ярославська',
@@ -58,6 +66,7 @@ function createPost(id){
   return {
     id: id + 1,
     url: `./photos/${id + 1}.jpg`,
+    avatar: `./img/avatar-${getRandomNumber(1,avatarsQuantity)}.svg`,
     description: descriptions[getRandomNumber(1, descriptions.length - 1)],
     likes: getRandomNumber(likesRange[0],likesRange[1]),
     comments: commentaries
@@ -70,8 +79,8 @@ function createComment(quantity){
     let comment = {
       id: i,
       avatar: `./img/avatar-${getRandomNumber(1,avatarsQuantity)}.svg`,
-      message: allComments[getRandomNumber(1, comments.length)],
-      name: names[getRandomNumber(1, names.length)],
+      message: allComments[getRandomNumber(1, allComments.length -1)],
+      name: names[getRandomNumber(1, names.length -1)],
     }
     comments.push(comment);
   }
@@ -92,9 +101,12 @@ function generatePosts(quantity) {
 }
 generatePosts(postsQuantity);
 
-export const allPosts = posts;
-
 thumbnails(posts);
 
-
-
+const container = document.querySelector(".pictures");
+container.addEventListener("click", function(event) {
+  let pictureWraper = event.target.closest('.picture');
+  if (pictureWraper) {
+    openBigImage(pictureWraper, posts);
+  }
+});
