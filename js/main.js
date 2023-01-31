@@ -15,7 +15,7 @@ const descriptions = [
   'Поставте лайк будьласка. Дуже потрібно!',
   'Хто знає де таке знайти? Мене забанили в гуглі',
 ];
-const comments = [
+const allComments = [
   'Все відмінно!',
   'Дуже класно, таке яскраве фото',
   'Тільки не кажи що ви витратили на це всю зарплату :О',
@@ -56,7 +56,7 @@ function shuffleArray(inputArray){
 function createPost(id){
   let commentaries = createComment(getRandomNumber(commentsRange[0], commentsRange[1]));
   return {
-    id: id,
+    id: id + 1,
     url: `./photos/${id + 1}.jpg`,
     description: descriptions[getRandomNumber(1, descriptions.length - 1)],
     likes: getRandomNumber(likesRange[0],likesRange[1]),
@@ -70,7 +70,7 @@ function createComment(quantity){
     let comment = {
       id: i,
       avatar: `./img/avatar-${getRandomNumber(1,avatarsQuantity)}.svg`,
-      message: comments[getRandomNumber(1, comments.length)],
+      message: allComments[getRandomNumber(1, comments.length)],
       name: names[getRandomNumber(1, names.length)],
     }
     comments.push(comment);
@@ -81,10 +81,9 @@ function createComment(quantity){
 let posts = [];
 function generatePosts(quantity) {
   let numbers = [];
-  for (let i =0; i < quantity; ++i){
+  for (let i = 0; i < quantity; ++i){
     numbers.push(i);
   }
-  console.log(numbers);
   let randomNumbers = shuffleArray(numbers);
 
   for (let i = 0; i < quantity; i++){
@@ -92,6 +91,8 @@ function generatePosts(quantity) {
   }
 }
 generatePosts(postsQuantity);
+
+export const allPosts = posts;
 
 thumbnails(posts);
 

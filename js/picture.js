@@ -14,6 +14,8 @@ function createThumb(data) {
   const likesBox = tmpPictureClone.querySelector(".picture__likes");
   const commentsCounter = tmpPictureClone.querySelector(".picture__comments");
 
+  console.log(data);
+
   linkTag.dataset.picid = data.id;
   imageTag.src = data.url;
   likesBox.innerText = data.likes;
