@@ -5,6 +5,7 @@ const thumbnailsFragment = new DocumentFragment();
 export function thumbnails(thumbs){
   thumbs.forEach((thumb=> createThumb(thumb)));
   container.append(thumbnailsFragment);
+
 }
 
 function createThumb(data) {
@@ -22,3 +23,4 @@ function createThumb(data) {
   commentsCounter.innerText = data.comments.length;
   thumbnailsFragment.append(tmpPictureClone);
 }
+
