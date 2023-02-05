@@ -1,4 +1,5 @@
 import { thumbnails } from './picture.js';
+import { openBigImage } from './lightbox.js';
 
 const postsQuantity = 25;
 const avatarsQuantity = 6;
@@ -13,15 +14,23 @@ const descriptions = [
   'Я принципіально не фоткаю їжу!!!',
   'Поставте лайк будьласка. Дуже потрібно!',
   'Хто знає де таке знайти? Мене забанили в гуглі',
+  'Сьогодні гарний день, чи не так?',
+  'Ще один крок на шляху до успіху',
+  'Якщо уподобали цей пост, то гляньте і вчорашній.'
 ];
-const comments = [
+const allComments = [
   'Все відмінно!',
   'Дуже класно, таке яскраве фото',
   'Тільки не кажи що ви витратили на це всю зарплату :О',
   'Вчора теж зробила таку фотку, прикол!',
   'Приходь завтра на піцу!',
+  'Приходь на каву, все розповіси.',
+  'І як все пройшло? Тобі сподобалось?',
+  'Не вірю своїм очам, очманіти!',
   'Звідки в тебе стільки підписників?',
   'Доброо дня! Ви продаєте рекламу в профілі?',
+  'Ну все начувайтесь! Я скоро приїду до вас!!!',
+  'Ніколи не пізно зганяти в ресторан',
 ];
 const names = [
   'Віола Ярославська',
@@ -55,8 +64,9 @@ function shuffleArray(inputArray){
 function createPost(id){
   let commentaries = createComment(getRandomNumber(commentsRange[0], commentsRange[1]));
   return {
-    id: id,
+    id: id + 1,
     url: `./photos/${id + 1}.jpg`,
+    avatar: `./img/avatar-${getRandomNumber(1,avatarsQuantity)}.svg`,
     description: descriptions[getRandomNumber(1, descriptions.length - 1)],
     likes: getRandomNumber(likesRange[0],likesRange[1]),
     comments: commentaries
@@ -69,8 +79,8 @@ function createComment(quantity){
     let comment = {
       id: i,
       avatar: `./img/avatar-${getRandomNumber(1,avatarsQuantity)}.svg`,
-      message: comments[getRandomNumber(1, comments.length)],
-      name: names[getRandomNumber(1, names.length)],
+      message: allComments[getRandomNumber(1, allComments.length -1)],
+      name: names[getRandomNumber(1, names.length -1)],
     }
     comments.push(comment);
   }
@@ -80,10 +90,9 @@ function createComment(quantity){
 let posts = [];
 function generatePosts(quantity) {
   let numbers = [];
-  for (let i =0; i < quantity; ++i){
+  for (let i = 0; i < quantity; ++i){
     numbers.push(i);
   }
-  console.log(numbers);
   let randomNumbers = shuffleArray(numbers);
 
   for (let i = 0; i < quantity; i++){
@@ -93,3 +102,11 @@ function generatePosts(quantity) {
 generatePosts(postsQuantity);
 
 thumbnails(posts);
+
+const container = document.querySelector(".pictures");
+container.addEventListener("click", function(event) {
+  let pictureWraper = event.target.closest('.picture');
+  if (pictureWraper) {
+    openBigImage(pictureWraper, posts);
+  }
+});
