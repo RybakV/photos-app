@@ -30,6 +30,8 @@ function closeUploadPopup() {
 }
 
 function checkTag(){
+  tagInput.setCustomValidity('');
+
   const value = this.value
   const space = ' ';
   const tagsRaw = value.split(space);
@@ -45,56 +47,56 @@ function checkTag(){
 
   let validationMessage = '';
 
-  tags.forEach(tag => {
-    console.log(tag);
-    const chars = tag.split('');
-
-    console.log(chars);
-    // чи починається на #
-    if (chars[0] === '#') {
-      chars.shift();
-    }
-    else {
-      validationMessage = 'Помилка: Теги мають починатись на # і не містити пробілів.';
-      console.log('Помилка: Нема решітки на початку');
-    }
-    // чи містить сторонні символи
-    if (/^[A-Za-z0-9]*$/.test(chars.join(''))) {
-      console.log(chars.join(''));
-    }
-    else {
-      validationMessage = 'Помилка: Теги мають містити тільки букви та цифри.';
-      console.log('Помилка: Сторонні символи');
-    }
-    // чи складається тільки з решітки
-    if (chars.length === 0) {
-      validationMessage = 'Помилка: Тег не може складатися тільки з одних ґрат.';
-      console.log('Помилка: Одні грати');
-    }
-    // чи довжина до 20 символів
-    if (chars.length > tagMaxLength) {
-      validationMessage = 'Помилка: Максимальна довжина тегу - 20 символів.';
-      console.log('Помилка: Більше 20 символів.');
-    }
-  });
-
   // чи тегів не більше 5
   if (tags.length > tagsMaxQuantity) {
     validationMessage = 'Помилка: Тегів має бути не більше п\'яти';
     console.log('Помилка: Більше 5 тегів');
   }
+  else { // перевірити повторки
+    let alreadySeen = {};
+    tags.forEach(function(str) {
+      if (alreadySeen[str]) {
+        console.log(`Тег ${str} повтрюється.`);
+        validationMessage = `Помилка: Тег ${str} повтрюється, треба прибрати повтор`;
+      }
+      else {
+        alreadySeen[str] = true;
+        validateEachTag(tags);
+      }
+    });
+  }
 
-  // перевірити повторки
-  let alreadySeen = {};
-  tags.forEach(function(str) {
-    if (alreadySeen[str]) {
-      console.log(`Тег ${str} повтрюється.`);
-      validationMessage = `Помилка: Тег ${str} повтрюється, треба прибрати повтор`;
-    }
-    else {
-      alreadySeen[str] = true;
-    }
-  });
+
+
+ function validateEachTag(tags) {
+   tags.forEach(tag => {
+     const chars = tag.split('');
+
+     // чи починається на #
+     if (chars[0] === '#') {
+       chars.shift();
+     } else if (chars[0] !== '#') {
+       validationMessage = `Помилка: Тег ${chars.join('')} має починатись з #.`;
+       console.log(`Помилка: Тег ${chars.join('')} має починатись з #.`);
+     }
+     // чи містить сторонні символи
+     else if (!(/^[A-Za-z0-9]*$/.test(chars.join('')))) {
+       validationMessage = `Помилка: Тег ${chars.join('')} містить сторонні символи`;
+       console.log(`Помилка: Тег ${chars.join('')} містить сторонні символи`);
+     }
+     // чи складається тільки з решітки
+     else if (chars.length === 0) {
+       validationMessage = 'Помилка: Тег не може складатися тільки з одних ґрат.';
+       console.log('Помилка: Одні грати');
+     }
+     // чи довжина до 20 символів
+     else if (chars.length > tagMaxLength) {
+       validationMessage = 'Помилка: Максимальна довжина тегу - 20 символів.';
+       console.log('Помилка: Більше 20 символів.');
+     }
+   });
+ }
+
 
   // вивести помилку
   if (validationMessage) {
@@ -103,9 +105,7 @@ function checkTag(){
   }
   // вивести корректні теги отримані в підсумку
   else {
-    const successsMessage = `Чудово! Ваші теги: ${tags.join()}`;
-    tagInput.setCustomValidity(successsMessage);
-    tagInput.reportValidity();
+    console.log(`Чудово! Ваші теги: ${tags.join()}`);
   }
 }
 /*

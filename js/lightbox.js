@@ -43,7 +43,6 @@ export function openBigImage(target, posts){
   btnCloseLightbox.addEventListener("click", closeBigImage);
 
   document.addEventListener("keydown", escBtn);
-
 }
 
 function escBtn(event){
