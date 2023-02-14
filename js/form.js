@@ -2,10 +2,9 @@ const uploadPopup = document.querySelector('.img-upload__overlay');
 const uploadPopupClose = document.querySelector('#upload-cancel');
 const body = document.querySelector('body');
 const tagInput = document.querySelector('.text__hashtags');
+const commentInput = document.querySelector('.text__description');
 
 export function onPhotoUpload(){
-  console.log('input changed');
-  console.log(tagInput.value);
   openUploadPopup();
 }
 
@@ -13,9 +12,29 @@ function openUploadPopup(){
   uploadPopup.classList.remove('hidden');
   uploadPopupClose.addEventListener('click', closeUploadPopup);
   body.classList.add('modal-open');
-  console.log('popup opened');
+
+  enablePopupEscBtn();
+
+  tagInput.addEventListener('focus', disablePopupEscBtn);
+  commentInput.addEventListener('focus', disablePopupEscBtn);
+  tagInput.addEventListener('blur', enablePopupEscBtn);
+  commentInput.addEventListener('blur', enablePopupEscBtn);
 
   tagInput.addEventListener('input', checkTag);
+  commentInput.addEventListener('input', checkComment);
+
+}
+
+function escBtn(event){
+  if (event.keyCode === 27) {
+    closeUploadPopup();
+  }
+}
+function enablePopupEscBtn(){
+  document.addEventListener("keydown", escBtn);
+}
+function disablePopupEscBtn(){
+  document.removeEventListener("keydown", escBtn);
 }
 
 function closeUploadPopup() {
@@ -23,10 +42,16 @@ function closeUploadPopup() {
   uploadPopupClose.removeEventListener('click', closeUploadPopup);
   body.classList.remove('modal-open');
   tagInput.value = null;
-  console.log(tagInput.value);
-  console.log('popup closed');
+
+  disablePopupEscBtn();
+
+  tagInput.removeEventListener('focus', disablePopupEscBtn);
+  commentInput.removeEventListener('focus', disablePopupEscBtn);
+  tagInput.removeEventListener('blur', enablePopupEscBtn);
+  commentInput.removeEventListener('blur', enablePopupEscBtn);
 
   tagInput.removeEventListener('input', checkTag);
+  commentInput.removeEventListener('input', checkComment);
 }
 
 function checkTag(){
@@ -40,23 +65,18 @@ function checkTag(){
     return element.toLowerCase();
   });
   const tags = tagsLower;
-
   const tagMaxLength = 19;
   const tagsMaxQuantity = 5;
-  console.log(tags);
 
   let validationMessage = '';
 
-  // чи тегів не більше 5
   if (tags.length > tagsMaxQuantity) {
     validationMessage = 'Помилка: Тегів має бути не більше п\'яти';
-    console.log('Помилка: Більше 5 тегів');
   }
-  else { // перевірити повторки
+  else {
     let alreadySeen = {};
     tags.forEach(function(str) {
       if (alreadySeen[str]) {
-        console.log(`Тег ${str} повтрюється.`);
         validationMessage = `Помилка: Тег ${str} повтрюється, треба прибрати повтор`;
       }
       else {
@@ -66,50 +86,46 @@ function checkTag(){
     });
   }
 
-
-
  function validateEachTag(tags) {
    tags.forEach(tag => {
      const chars = tag.split('');
-
-     // чи починається на #
      if (chars[0] === '#') {
        chars.shift();
-     } else if (chars[0] !== '#') {
-       validationMessage = `Помилка: Тег ${chars.join('')} має починатись з #.`;
-       console.log(`Помилка: Тег ${chars.join('')} має починатись з #.`);
      }
-     // чи містить сторонні символи
-     else if (!(/^[A-Za-z0-9]*$/.test(chars.join('')))) {
-       validationMessage = `Помилка: Тег ${chars.join('')} містить сторонні символи`;
-       console.log(`Помилка: Тег ${chars.join('')} містить сторонні символи`);
+     else if (chars[0] !== '#') {
+       validationMessage = `Помилка: Тег ${tag} має починатись з #.`;
      }
-     // чи складається тільки з решітки
+     if (!(/^[A-Za-z0-9]*$/.test(chars.join('')))) {
+       validationMessage = `Помилка: Тег ${tag} містить сторонні символи`;
+     }
      else if (chars.length === 0) {
-       validationMessage = 'Помилка: Тег не може складатися тільки з одних ґрат.';
-       console.log('Помилка: Одні грати');
+       validationMessage = 'Помилка: Тег # не може складатися тільки з одних ґрат.';
      }
-     // чи довжина до 20 символів
      else if (chars.length > tagMaxLength) {
-       validationMessage = 'Помилка: Максимальна довжина тегу - 20 символів.';
-       console.log('Помилка: Більше 20 символів.');
+       validationMessage = `Помилка: Максимальна довжина тегу - 20 символів.`;
      }
    });
  }
-
-
-  // вивести помилку
   if (validationMessage) {
     tagInput.setCustomValidity(validationMessage);
     tagInput.reportValidity();
   }
-  // вивести корректні теги отримані в підсумку
-  else {
-    console.log(`Чудово! Ваші теги: ${tags.join()}`);
-  }
+  else { console.log(`Чудово! Ваші теги: ${tags.join()}`); }
 }
-/*
-Тестуємо теги:
-#hey  #HEY ##hi # #!HELLO #ho%lla aloha #hehe
-#hey #HEY #HELLO #holla #3
-*/
+
+function checkComment(){
+  commentInput.setCustomValidity('');
+  let validationMessage = '';
+  const tagMaxLength = 140;
+  console.log(commentInput.value.length);
+
+  if (commentInput.value.length > tagMaxLength) {
+    validationMessage = `Коментар має бути не більше ${tagMaxLength}`;
+  }
+
+  if (validationMessage) {
+    commentInput.setCustomValidity(validationMessage);
+    commentInput.reportValidity();
+  }
+  else { console.log(`Чудово! Коментар перевірено.`); }
+}

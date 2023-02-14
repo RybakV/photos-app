@@ -46,7 +46,6 @@ export function openBigImage(target, posts){
 }
 
 function escBtn(event){
-  console.log(event)
   if (event.keyCode === 27) {
     closeBigImage();
   }
