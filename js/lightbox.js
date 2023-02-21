@@ -43,11 +43,9 @@ export function openBigImage(target, posts){
   btnCloseLightbox.addEventListener("click", closeBigImage);
 
   document.addEventListener("keydown", escBtn);
-
 }
 
 function escBtn(event){
-  console.log(event)
   if (event.keyCode === 27) {
     closeBigImage();
   }

@@ -1,5 +1,6 @@
 import { thumbnails } from './picture.js';
 import { openBigImage } from './lightbox.js';
+import {onPhotoUpload} from "./form.js";
 
 const postsQuantity = 25;
 const avatarsQuantity = 6;
@@ -104,9 +105,13 @@ generatePosts(postsQuantity);
 thumbnails(posts);
 
 const container = document.querySelector(".pictures");
-container.addEventListener("click", function(event) {
+container.addEventListener('click', function(event) {
   let pictureWraper = event.target.closest('.picture');
   if (pictureWraper) {
     openBigImage(pictureWraper, posts);
   }
 });
+
+const photoInput = document.querySelector('#upload-file');
+photoInput.addEventListener('change', onPhotoUpload);
+
