@@ -37,8 +37,6 @@ export function createSlider() {
   filterSlider.noUiSlider.on('update', function (values, handle) {
     filterValue = values[handle];
     calculateFilterValue(filterName, filterValue);
-
-    console.log(filterValue);
     largeImage.style.filter = filterValueCss;
     sliderValueInput.setAttribute('value', filterValueCss);
   });
