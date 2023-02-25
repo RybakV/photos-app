@@ -27,5 +27,8 @@
     "hilel",
     "study"
   ],
-  "author": "RybakV"
+  "author": "RybakV",
+  "dependencies": {
+    "nouislider": "^15.7.0"
+  }
 }
