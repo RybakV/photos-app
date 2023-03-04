@@ -16,6 +16,7 @@ function createThumb(data) {
 
   linkTag.dataset.picid = data.id;
   imageTag.src = data.url;
+  imageTag.style.filter = data.cssFilter;
   likesBox.innerText = data.likes;
   commentsCounter.innerText = data.comments.length;
   thumbnailsFragment.append(tmpPictureClone);
