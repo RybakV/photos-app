@@ -519,7 +519,8 @@ main {
 
   width: 600px;
   height: 600px;
-
+  border: 8px solid #fff;
+  overflow: hidden;
   background-color: #ffffff;
 }
 

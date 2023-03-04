@@ -1,6 +1,9 @@
 import { thumbnails } from './picture.js';
 import { openBigImage } from './lightbox.js';
-import {onPhotoUpload} from "./form.js";
+import { onPhotoUpload } from "./form.js";
+import { createSlider } from "./no-ui-slider.js";
+import { uploadImageZoom } from "./no-ui-slider.js";
+
 
 let posts = [];
 fetch("http://localhost:4000/photos")
@@ -20,3 +23,6 @@ container.addEventListener('click', function(event) {
 
 const photoInput = document.querySelector('#upload-file');
 photoInput.addEventListener('change', onPhotoUpload);
+
+createSlider();
+uploadImageZoom()
