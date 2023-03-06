@@ -4,11 +4,15 @@ let filterValueCss = '';
 const filterMin = 0;
 const filterMax = 100;
 let filterSteps = 10;
-const submitImageForm = document.querySelector('#upload-select-image');
+
 const filterSlider = document.querySelector('#slider');
 const effectsParent = document.querySelector('.effects__list');
 const sliderValueInput = document.querySelector('.effect-level__value');
 const largeImage = document.querySelector('.img-upload__preview img');
+const descriptionInput = document.querySelector('.text__description');
+const tagsInput = document.querySelector('.text__hashtags');
+
+
 
 export function createSlider() {
   filterSlider.classList.add('hidden');
@@ -17,7 +21,7 @@ export function createSlider() {
     start: [filterMax],
     animate: true,
     connect: 'lower',
-    step: 10,
+    step: filterSteps,
     tooltips: true,
     format: {
       to: function (value) {
@@ -103,6 +107,13 @@ function calculateFilterValue(effectName, opacity){
   }
 }
 
+export function resetSlider(){
+  filterName = 'none';
+  filterSlider.noUiSlider.updateOptions({
+    start: [filterMax],
+  });
+}
+
 function setSteps(quantity){
   filterSlider.noUiSlider.updateOptions({
     step: filterMax/quantity,
@@ -134,7 +145,6 @@ export function uploadImageZoom(){
       if (scaleLevel < scaleLevelMax) {
         scaleLevel = scaleLevel + scaleStep;
         largeImage.style.transform = `scale(${scaleLevel})`;
-        largeImage.style.opacity = scaleLevel;
         scaleLevelPercent = `${scaleLevel*100}%`
         scaleValueInput.setAttribute('value', scaleLevelPercent);
       }
@@ -142,12 +152,60 @@ export function uploadImageZoom(){
   }
 }
 
-//Form submit logic
-submitImageForm.addEventListener("submit", formSubmit);
-function formSubmit(event){
-  event.preventDefault();
-  console.log(`Застосовано фільтр ${filterName} з значенням ${filterValue}`);
-  console.log(`Масштаб зображення - ${scaleLevel*100}%`);
+//Reading image file input
+let image64 = '';
+
+const fileInputElement = document.querySelector("#upload-file");
+fileInputElement.addEventListener("change", handleImageFile, false);
+function handleImageFile() {
+
+  //Get image from input
+  const fileUpload = fileInputElement.files[0];
+
+
+  //Get 64bit image url
+  const imageFileReader = new FileReader();
+  imageFileReader.readAsDataURL(fileUpload);
+
+  imageFileReader.onload=function(){
+    largeImage.src = this.result;
+    image64 = this.result;
+  };
+
 }
 
+//Form submit logic
+export async function formSubmit(){
 
+  console.log(`Застосовано фільтр ${filterName} з значенням ${filterValue}`);
+  console.log(`Масштаб зображення - ${scaleLevel*100}%`);
+
+
+  let newImageData = {
+    id: 0,
+    url: image64,
+    avatar: '',
+    description: descriptionInput.value ? descriptionInput.value : '',
+    likes: 0,
+    comments: [],
+    tags: tagsInput.value ? tagsInput.value : '',
+    cssFilter: filterValueCss,
+    zoom: scaleLevel,
+  };
+
+  const requestOptions = {
+    method: "POST",
+    headers: {"Content-Type": "application/json" },
+    body: JSON.stringify(newImageData).toString()
+  };
+
+  return fetch("http://localhost:4000/photo-upload", requestOptions)
+
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+
+    });
+
+}

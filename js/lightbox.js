@@ -10,8 +10,6 @@ const photoDescription = document.querySelector(".social__caption");
 const btnMoreComments = document.querySelector(".social__comments-loader");
 
 
-
-
 export function openBigImage(target, posts){
   const id = Number(target.dataset.picid);
 
@@ -21,6 +19,7 @@ export function openBigImage(target, posts){
   const postData = posts.find(post => post.id === id);
 
   bigImg.src = postData.url;
+  bigImg.style.filter = postData.cssFilter;
   photoPostAuthor.src = postData.avatar;
   photoDescription.innerText = postData.description;
   btnLike.innerText = postData.likes;
@@ -87,7 +86,7 @@ function escBtn(event){
     closeBigImage();
   }
 }
-function closeBigImage(){
+export function closeBigImage(){
   lightbox.classList.add("hidden");
   toggleBodyScroll('scroll');
   document.removeEventListener("keydown", escBtn);

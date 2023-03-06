@@ -1,9 +1,8 @@
 import { thumbnails } from './picture.js';
 import { openBigImage } from './lightbox.js';
-import { onPhotoUpload } from "./form.js";
-import { createSlider } from "./no-ui-slider.js";
+import {closeUploadPopup, onPhotoUpload} from "./form.js";
+import {createSlider, formSubmit} from "./no-ui-slider.js";
 import { uploadImageZoom } from "./no-ui-slider.js";
-
 
 let posts = [];
 fetch("http://localhost:4000/photos")
@@ -25,4 +24,21 @@ const photoInput = document.querySelector('#upload-file');
 photoInput.addEventListener('change', onPhotoUpload);
 
 createSlider();
-uploadImageZoom()
+uploadImageZoom();
+
+const submitImageForm = document.querySelector('#upload-select-image');
+submitImageForm.addEventListener("submit", submitNewImage);
+async function submitNewImage(event){
+  event.preventDefault();
+
+  let newImageData = await formSubmit();
+  posts.push(newImageData);
+
+  const newThumbnails = [newImageData];
+  thumbnails(newThumbnails);
+  closeUploadPopup();
+
+}
+
+
+
