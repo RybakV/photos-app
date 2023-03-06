@@ -128,7 +128,7 @@ main {
    ========================================================================== */
 
 .img-filters {
-  padding: 20px 0;
+  padding: 20px 0 27px;
 
   display: -webkit-box;
   display: -ms-flexbox;
@@ -149,20 +149,19 @@ main {
   font-family: "Open Sans", "Arial", sans-serif;
   font-weight: 700;
   font-size: 18px;
-  line-height: auto;
+  color: #751aaf;
   text-transform: uppercase;
 
   cursor: pointer;
-  background-color: #232321;
+  background-color: #290f4e;
   border: none;
 }
 
 .img-filters__button:active,
 .img-filters__button--active {
-  color: #ff4e4e;
-
-  background-color: #ffffff;
-  border-radius: 2px;
+  color: #df24ef;
+  background-color: #3e1874;
+  text-shadow: 0 0 6px #ff28fa55;
 }
 
 .img-filters__label {
