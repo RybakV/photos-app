@@ -1,6 +1,7 @@
 export function applyFilter(event, data) {
   hideALlPhotos();
   let btn = event.target.closest('.img-filters__button');
+  switchBtn(btn);
 
   switch (btn.getAttribute('id')){
     case ('filter-default'):
@@ -33,4 +34,9 @@ function getRandomNumber(min, max){
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+function switchBtn(target){
+  const oldActiveBtn = document.querySelector(".img-filters__button--active");
+  oldActiveBtn.classList.remove("img-filters__button--active");
+  target.classList.add("img-filters__button--active");
 }

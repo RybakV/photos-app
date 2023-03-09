@@ -1,4 +1,4 @@
-/* Общие стили. Каркас
+/* Загальні стилі. Каркас
    ========================================================================== */
 
 @font-face {
@@ -65,7 +65,7 @@ main {
 }
 
 /**
- * Кнопка закрытия модального окна
+ * Кнопка закриття модального вікна
  */
 
 .cancel {
@@ -96,14 +96,12 @@ main {
 }
 
 .cancel:active {
-  -webkit-transform: translateY(1px);
-      -ms-transform: translateY(1px);
           transform: translateY(1px);
 }
 
 
 /**
- * Оверлей под экранами
+ * Оверлей під екранами
  */
 
 .overlay {
@@ -124,9 +122,8 @@ main {
 }
 
 
-/* Блок с фильтрами изображений других пользователей
+/* Фільтри фотографій
    ========================================================================== */
-
 .img-filters {
   padding: 20px 0 27px;
 
@@ -138,30 +135,74 @@ main {
      -ms-flex-pack: center;
    justify-content: center;
 }
-
 .img-filters--inactive {
   opacity: 0;
 }
-
-.img-filters__button {
-  padding: 5px 15px;
-
-  font-family: "Open Sans", "Arial", sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  color: #751aaf;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  background-color: #290f4e;
-  border: none;
+.img-filters__form {
+  display: flex;
 }
+.img-filters__button {
+  color: #201150;
+  display: inline-block;
+  background: rgb(51 27 139);
+  background: linear-gradient(90deg, rgb(51 27 139) 0%, rgb(106 64 207) 100%);
+  border: none;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1em;
+  letter-spacing: 0.17em;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  padding: 10px 30px;
+  transition: 0.2s;
+  -webkit-transition: 0.3s;
+  box-shadow: none;
 
-.img-filters__button:active,
+  position: relative;
+}
+.img-filters__button:hover {
+  box-shadow: 0 0 0 10px #3daaa200;
+  transition: .8s;
+  -webkit-transition: .8s;
+}
+@keyframes glow{
+  0% { box-shadow: 0 0 20px #8b61f844; text-shadow:  0 0 0px #efe1ff; }
+  40% { box-shadow: 0 0 100px #8b61f8ee; text-shadow:  0 0 10px #efe1ff;}
+  100% { box-shadow: 0 0 20px #8b61f844; text-shadow:  0 0 1px #efe1ff; }
+}
 .img-filters__button--active {
-  color: #df24ef;
-  background-color: #3e1874;
-  text-shadow: 0 0 6px #ff28fa55;
+  color: #efe1ff;
+
+  position: relative;
+
+  animation: glow 5s infinite;
+  animation-timing-function: ease-out;
+
+  background: rgb(138,97,248);
+  background: -moz-linear-gradient(left, rgba(138,97,248,1) 0%, rgba(236,95,231,1) 100%);
+  background: -webkit-linear-gradient(left, rgba(138,97,248,1) 0%,rgba(236,95,231,1) 100%);
+  background: linear-gradient(to right, rgba(138,97,248,1) 0%,rgba(236,95,231,1) 100%);
+}
+.img-filters__button--active:after {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 0;
+  height: 100%;
+  right: 80%;
+  width: 1px;
+  background-color: #ffffff00;
+  box-shadow: 0 0 20px #ffd2fe00, 0 0 10px #ffd2fe00, 0 0 5px #ffd2fe00, 0 0 2px #ffd2fe00;
+  opacity: 1;
+}
+.img-filters__button--active:hover:after {
+  right: 2%;
+  background-color: #ffffffff;
+  box-shadow: 0 0 30px #ffd2feff, 0 0 15px #ffd2feff, 0 0 7px #ffd2feff, 0 0 3px #ffd2feff;
+  opacity: 0;
+  transition: 0.6s;
+  -webkit-transition: 0.6s;
 }
 
 .img-filters__label {
@@ -188,7 +229,7 @@ main {
 }
 
 
-/* Блок, в котором размещаются фотографии других пользователей
+/* Блок з фотографіями користувачів
    ========================================================================== */
 
 .pictures {
@@ -239,9 +280,8 @@ main {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
+
+  transform: translateX(-50%);
 }
 
 .picture:hover .picture__info,
@@ -291,7 +331,7 @@ main {
 }
 
 
-/* Поле для загрузки нового изображения
+/* Поле для завантаження нового фото
    ========================================================================== */
 
 .img-upload {
@@ -371,7 +411,7 @@ main {
 }
 
 
-/* Окно для редактирования изображения
+/* Вікно для редагуання нового фото
    ========================================================================== */
 
 .img-upload__overlay {
@@ -399,7 +439,7 @@ main {
 
 
 /**
- * Кнопки изменения масштаба изобраения
+ * Кнопки зміни масштабу фото
  */
 
 .img-upload__scale {
@@ -411,8 +451,7 @@ main {
   font-family: "Open Sans", "Arial", sans-serif;
   font-weight: 400;
 
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
+
           transform: translateX(-50%);
 }
 
@@ -445,8 +484,7 @@ main {
 }
 
 .scale__control:active {
-  -webkit-transform: translateY(1px);
-      -ms-transform: translateY(1px);
+
           transform: translateY(1px);
 }
 
@@ -464,8 +502,7 @@ main {
   line-height: 0;
   color: #ffffff;
 
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
+
           transform: translate(-50%, -50%);
 }
 
@@ -493,14 +530,13 @@ main {
   line-height: 0;
   color: #ffffff;
 
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
+
           transform: translate(-50%, -50%);
 }
 
 
 /**
- * Превью изображения
+ * попередній перегляд фото
  */
 
 .img-upload__preview {
@@ -529,7 +565,7 @@ main {
 
 
 /**
- * Шкала регулирования глубины фильтра
+ * Шкала регулювання глибини фільтра
  */
 
 .effect-level {
@@ -550,8 +586,7 @@ main {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 34px;
 
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
+
           transform: translateX(-50%);
 }
 
@@ -573,7 +608,7 @@ main {
 
 
 /**
- * Блок с эффектами, которые можно применить к изображению
+ * Блок з ефектами, які можна застосувати до фото
  */
 
 .effects {
@@ -675,7 +710,7 @@ main {
 
 
 /**
- * Блок добавления хэштегов и комментария к изображению
+ * Блок додавання хештегів та коментаря до зображення
  */
 
 .text {
@@ -717,7 +752,7 @@ main {
 
 
 /**
- * Кнопка для отправки изображения
+ * Кнопка для надсилання зображення
  */
 
 .img-upload__submit {
@@ -741,8 +776,7 @@ main {
 }
 
 .img-upload__submit:active {
-  -webkit-transform: translateY(1px);
-      -ms-transform: translateY(1px);
+
           transform: translateY(1px);
 }
 
@@ -753,7 +787,7 @@ main {
 
 
 /*
- * Кнопка для закрытия окна редактирования изображения
+ * Кнопка для закриття вікна редагування зображення
  */
 
 .img-upload__cancel {
@@ -763,13 +797,12 @@ main {
 }
 
 .img-upload__cancel:active {
-  -webkit-transform: translateY(1px);
-      -ms-transform: translateY(1px);
+
           transform: translateY(1px);
 }
 
 
-/* Окно полноэкранного просмотра изображения
+/* Вікно повноекранного перегляду зображення
    ========================================================================== */
 
 .big-picture__preview {
@@ -782,8 +815,7 @@ main {
 
   padding-bottom: 60px;
 
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
+
           transform: translateX(-50%);
 }
 
@@ -813,7 +845,7 @@ main {
 
 
 /*
- * Подпись к изображению
+ * Підпис до зображення
  */
 
 .social__header {
@@ -856,13 +888,13 @@ main {
   position: relative;
   padding-left: 30px;
 
-  color: #f48181;
+  color: #c281f4;
 
   cursor: pointer;
 }
 
 .likes-count:hover {
-  color: #e90000;
+  color: #6108a5;
 }
 
 .likes-count::before {
@@ -895,7 +927,7 @@ main {
 
 
 /*
- * Комментарии к изображению
+ * Коментарі до зображення
  */
 
 .social__comments {
@@ -958,7 +990,7 @@ main {
 
 
 /**
- * Спиннер загрузки комментариев и его анимация
+ * Спіннер завантаження коментарів та його анімація
  */
 
 .spinner::after,
@@ -1009,7 +1041,7 @@ main {
 
 
 /*
- * Форма для отправки комментария
+ * Форма для відправки коментаря
  */
 
 .social__footer {
@@ -1081,7 +1113,7 @@ main {
 }
 
 
-/* Подвал сайта
+/* Підвал сайту (Футер)
    ========================================================================== */
 
 .page-footer {
@@ -1105,83 +1137,6 @@ main {
 }
 
 
-/*
- * Копирайт Академии
- */
-
-.copyright {
-  font-size: 12px;
-}
-
-.copyright__link--image:hover,
-.copyright__link--image:focus {
-  opacity: 0.6;
-}
-
-.copyright__link--text {
-  color: #ffffff;
-}
-
-.copyright__link--text:hover,
-.copyright__link--text:focus {
-  opacity: 0.6;
-}
-
-.page-footer__contacts {
-  background-color: inherit;
-}
-
-
-/*
- * Ссылки на социальные сети
- */
-
-.contacts {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.contacts__link {
-  display: block;
-
-  width: 29px;
-  height: 29px;
-  margin-left: 10px;
-
-  font-size: 0;
-
-  background-image: url("../img/sprite.png");
-  background-repeat: no-repeat;
-
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.contacts__link:hover,
-.contacts__link:focus {
-  opacity: 1;
-}
-
-.contacts__link--twitter {
-  background-position: -5px -270px;
-}
-
-.contacts__link--instagram {
-  background-position: -5px -231px;
-}
-
-.contacts__link--facebook {
-  background-position: -5px -192px;
-}
-
-.contacts__link--vk {
-  background-position: -5px -309px;
-}
 
 
 /* Экраны с сообщениями для пользователя
@@ -1210,7 +1165,7 @@ main {
 
 
 /**
- * Экраны ошибки и успеха загрузки изображения
+ * Екрани помилки та успіху завантаження зображення
  */
 
 .error,
@@ -1234,79 +1189,87 @@ main {
   position: relative;
   width: 600px;
   padding: 50px 20px;
-  padding-top: 150px;
   margin-top: 200px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   font-family: "Open Sans", "Arial", sans-serif;
   text-align: center;
   font-weight: 700;
   font-size: 20px;
-  color: #ffe753;
-
-  background-color: #3c3614;
-  border-radius: 10px;
+  color: #eb0a34;
+  background-color: #150c2c;
 }
 
 .success__inner {
-  padding: 100px 20px;
-  padding-bottom: 75px;
+  padding: 50px 20px;
 }
 
 .error__title {
   position: relative;
-
-  margin: 0;
-  margin-bottom: 50px;
-
-  font-size: 32px;
+  margin-bottom: 36px;
+  letter-spacing: 0.17em;
+  font-size: 24px;
 }
 
 .success__title {
-  margin: 0;
-  margin-bottom: 50px;
-
-  font-size: 32px;
+  margin-bottom: 36px;
+  letter-spacing: 0.17em;
+  line-height: 1em;
+  font-size: 24px;
+  color: #aeaeff;
 }
 
 .error__title::before {
   content: "";
-  position: absolute;
-
-  width: 59px;
-  height: 52px;
-
-  top: -100px;
-  left: 50%;
-
-  background-image: url("../img/icon-warning.svg");
-
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
+  display: block;
+  margin: 0 auto 20px;
+  width: 100px;
+  height: 100px;
+  background-image: url(../img/icon-warning.svg);
+  background-repeat: no-repeat;
 }
 
 .error__button,
 .success__button {
-  padding: 5px 10px;
-
-  color: #ffffff;
+  padding: 15px 30px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1em;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
-
-  background: transparent;
-  border: 2px solid #ffffff;
-  border-radius: 5px;
+  transition: .2s;
+}
+.error__button {
+  color: #eb0a34;
+  background: rgba(51 27 139,0.5);
+  background: linear-gradient(180deg, rgb(52 11 44) 0%, rgb(118 11 50) 100%);
+}
+.success__button {
+  color: #629fcb;
+  background: rgba(51 27 139, 0.5);
+  background: linear-gradient(180deg, rgb(120 159 255 / 16%) 0%, rgb(83 15 135) 100%);
+  box-shadow: 0 7px 20px #139cdf00;
+  text-shadow: 0 0 10px #ffffff00;
+  transition: .2s;
 }
 
 .error__button:hover,
-.error__button:focus,
+.error__button:focus {
+  background: rgba(51 27 139,0.5);
+  background: linear-gradient(180deg, rgb(52 11 44) 0%, rgb(118 11 50) 70%);
+  box-shadow: 0 13px 35px #eb0a3444;
+  text-shadow: 0 0 10px #eb0a3477;
+}
 .success__button:hover,
 .success__button:focus {
-  opacity: 0.8;
+  background: rgba(69 78 153,0.5);
+  background: linear-gradient(180deg, rgb(69 78 153) 0%, rgb(132 17 203) 70%);
+  box-shadow: 0 13px 35px #139cdf44;
+  text-shadow: 0 0 10px #ffffff8f;
+  color: #cfcef9;
 }
 
 .error__button:active,
@@ -1351,7 +1314,7 @@ main {
 
 
 /**
- * Экран загрузки изображения
+ * Екран завантаження зображення
  */
 
 .img-upload__message--loading::before {
@@ -1365,8 +1328,7 @@ main {
 
   background-color: #8a7d2d;
 
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
+
           transform: translateX(-50%);
 }
 
@@ -1381,13 +1343,12 @@ main {
 
   background-color: #ffe753;
 
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
+
           transform: translateX(-50%);
 }
 
 
-/* Адаптивности чуток
+/* Адаптивність
    ========================================================================== */
 
 @media (min-width: 1024px) {
@@ -1449,7 +1410,6 @@ main {
 
   white-space: nowrap;
 
-  -webkit-clip-path: inset(100%);
           clip-path: inset(100%);
 
   clip: rect(0 0 0 0);
